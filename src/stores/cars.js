@@ -4,7 +4,7 @@ class CarStore {
 
     @observable cars = [];
 
-    @action addCar(car){
+    @action addCar = car => {
 
         this.cars.push(car);
     }

@@ -13,10 +13,25 @@ class Cars extends React.Component {
     super(props);
   }
 
+  handleSubmit = e => {
+
+    e.preventDefault();
+    this.props.CarStore.addCar(this.birdInput.value);
+    e.target.reset();
+  };
+
   render() {
     return (
       <div>
-        You have {this.props.CarStore.carsCount} cars.
+        <form onSubmit={e => this.handleSubmit(e)}>
+          <input type="text" ref={input => (this.birdInput = input)} placeholder="Add a car" />
+          <div>
+            You have {this.props.CarStore.carsCount} cars.
+          </div>
+        </form>
+        <ul>
+          {CarStore.cars.map(car => <li key={car}>{car}</li>)}
+        </ul>
       </div>
     );
   }
