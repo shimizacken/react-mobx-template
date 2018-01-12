@@ -16,15 +16,31 @@ class Cars extends Component {
   }
 
   render() {
+
+    const style = {
+      color: 'red',
+      float: 'left',
+      width: '350px'
+    }
+
     return (
-      <div>
-        <CarCounter />
-        <form onSubmit={this.handleSubmit}>
-          <input type='text' ref={input => (this.carInput = input)} placeholder='Add a car' />
-        </form>
-        <ul>
-          {this.props.carStore.cars.map(car => <li key={car}>{car}</li>)}
-        </ul>
+      <div style={style}>
+        <div style={{float: 'right'}}>
+          <CarCounter />
+        </div>
+        <div style={{float: 'left'}}>
+          <form onSubmit={this.handleSubmit}>
+            <input type='text' ref={input => (this.carInput = input)} placeholder='Add a car' />
+          </form>
+          <ul style={{
+            listStyleType: 'none',
+            padding: 0,
+            margin: 0,
+            marginTop: '15px'
+          }}>
+            {this.props.carStore.cars.map(car => <li key={car}>{car}</li>)}
+          </ul>
+        </div>
       </div>
     );
   }
