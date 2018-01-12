@@ -2,7 +2,7 @@ import React, { Component } from 'react';
 import ReactDOM from 'react-dom';
 import { Provider, observer, inject } from 'mobx-react';
 import Cars from './components/cars/cars';
-import carStore from './stores/carsStore';
+import carStore from './stores/carStore';
 
 const stores = {
   carStore
