@@ -1,21 +1,19 @@
 import React from 'react';
 import { inject, observer } from 'mobx-react';
 
-@inject('carStore') @observer
-class DeleteCar extends React.Component {
 
-    deleteCar = () => {
+const DeleteCar = inject('carStore')(observer((props) => {
 
-        this.props.carStore.deleteCar(this.props.carId);
+    const deleteCar = () => {
+
+        props.carStore.deleteCar(props.carId);
     }
 
-    render() {
-        return(
-            <span onClick={this.deleteCar} style={{cursor: 'pointer', color: 'red'}}>
-                X
-             </span>
-        );
-    }
-}
+    return(
+        <span onClick={deleteCar} style={{cursor: 'pointer', color: 'red'}}>
+            X
+         </span>
+    );
+}));
 
 export default DeleteCar;
