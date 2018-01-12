@@ -1,20 +1,20 @@
-import React from 'react';
+import React, { Component } from 'react';
 import ReactDOM from 'react-dom';
-import { Provider, observer, inject } from "mobx-react";
-import carStore from "./stores/cars";
+import { Provider, observer, inject } from 'mobx-react';
+import carStore from './stores/carsStore';
 
 const stores = {
   carStore
 };
 
 @inject('carStore') @observer
-class Cars extends React.Component {
+class Cars extends Component {
 
   handleSubmit = e => {
 
     e.preventDefault();
 
-    this.props.carStore.addCar(this.birdInput.value);
+    this.props.carStore.addCar(this.carInput.value);
     
     e.target.reset();
   }
@@ -23,9 +23,9 @@ class Cars extends React.Component {
     return (
       <div>
         <form onSubmit={this.handleSubmit}>
-          <input type="text" ref={input => (this.birdInput = input)} placeholder="Add a car" />
+          <input type='text' ref={input => (this.carInput = input)} placeholder='Add a car' />
           <div>
-            You have {this.props.carStore.carsCount} cars.
+            You have {this.props.carStore.totalCars} cars.
           </div>
         </form>
         <ul>
@@ -36,17 +36,13 @@ class Cars extends React.Component {
   }
 }
 
-class App extends React.Component {
-  render() {
-    return (
-      <Cars />
-    );
-  }
-}
+const App = () => (
+  <Cars />
+);
 
 ReactDOM.render(
   <Provider {...stores}>
-    <App name='shimi!' />
+    <App />
   </Provider>,
   document.getElementById('root')
 );
