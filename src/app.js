@@ -1,36 +1,35 @@
 import React from 'react';
 import ReactDOM from 'react-dom';
 import { Provider, observer, inject } from "mobx-react";
-import CarStore from "./stores/cars";
+import carStore from "./stores/cars";
 
-window.stores = CarStore;
+const stores = {
+  carStore
+};
 
-@inject('CarStore')
-@observer
+@inject('carStore') @observer
 class Cars extends React.Component {
-
-  constructor(props){
-    super(props);
-  }
 
   handleSubmit = e => {
 
     e.preventDefault();
-    this.props.CarStore.addCar(this.birdInput.value);
+
+    this.props.carStore.addCar(this.birdInput.value);
+    
     e.target.reset();
-  };
+  }
 
   render() {
     return (
       <div>
-        <form onSubmit={e => this.handleSubmit(e)}>
+        <form onSubmit={this.handleSubmit}>
           <input type="text" ref={input => (this.birdInput = input)} placeholder="Add a car" />
           <div>
-            You have {this.props.CarStore.carsCount} cars.
+            You have {this.props.carStore.carsCount} cars.
           </div>
         </form>
         <ul>
-          {CarStore.cars.map(car => <li key={car}>{car}</li>)}
+          {this.props.carStore.cars.map(car => <li key={car}>{car}</li>)}
         </ul>
       </div>
     );
@@ -40,15 +39,13 @@ class Cars extends React.Component {
 class App extends React.Component {
   render() {
     return (
-      <Provider CarStore={CarStore}>
-        <Cars />
-      </Provider>
+      <Cars />
     );
   }
 }
 
 ReactDOM.render(
-  <Provider carStore={CarStore}>
+  <Provider {...stores}>
     <App name='shimi!' />
   </Provider>,
   document.getElementById('root')
