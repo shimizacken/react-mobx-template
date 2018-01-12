@@ -1,12 +1,19 @@
-import { observable, action, computed } from 'mobx';
+import { mobx, observable, action, computed, autorun } from 'mobx';
 
 class CarStore {
 
     @observable cars = [];
 
-    @action addCar = car => {
+    @action addCar = (car) => {
 
-        this.cars.push(parseInt(car));
+        this.cars.push(car);
+    }
+
+    constructor(){
+
+        autorun(() => {
+            console.log(this.cars);
+        });
     }
 
     @computed get carsCount() {
@@ -21,12 +28,7 @@ class CarStore {
             return 0;
         }
 
-        function sum(total, num) {
-            
-            return total + num;
-        }
-
-        return this.cars.reduce(sum);
+        return this.carsCount;
     }
 }
 
