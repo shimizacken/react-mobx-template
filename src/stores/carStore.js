@@ -2,6 +2,13 @@ import { mobx, observable, action, computed, autorun } from 'mobx';
 
 class CarStore {
 
+    constructor(){
+
+        autorun(() => {
+            console.log(this.cars);
+        });
+    }
+
     @observable cars = [];
 
     @action addCar = (car) => {
@@ -9,11 +16,13 @@ class CarStore {
         this.cars.push(car);
     }
 
-    constructor(){
+    @action deleteCar = (carId) => {
 
-        autorun(() => {
-            console.log(this.cars);
-        });
+        function remove(array, carId) {
+            return array.filter(e => e.id !== carId);
+        }
+
+        this.cars = remove(this.cars, carId);
     }
 
     @computed get carsCount() {

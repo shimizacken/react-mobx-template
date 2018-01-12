@@ -2,6 +2,7 @@ import React, { Component } from 'react';
 import ReactDOM from 'react-dom';
 import { observer, inject } from 'mobx-react';
 import CarCounter from './carsCounter';
+import DeleteCar from './deleteCar';
 
 @inject('carStore') @observer
 class Cars extends Component {
@@ -18,6 +19,12 @@ class Cars extends Component {
     this.props.carStore.addCar(car);
     
     e.target.reset();
+  }
+
+  deleteCar = (id) => {
+
+    console.log(id);
+      //this.props.carStore.deleteCar(e.value);
   }
 
   render() {
@@ -49,7 +56,12 @@ class Cars extends Component {
             margin: 0,
             marginTop: '15px'
           }}>
-            {this.props.carStore.cars.map(car => <li key={car.id}>{car.name}</li>)}
+            {
+              this.props.carStore.cars.map(car => 
+                <li key={car.id}>{car.name} 
+                  <DeleteCar carId={car.id} />
+                </li>)
+            }
           </ul>
         </div>
       </div>
